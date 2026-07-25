@@ -31,6 +31,7 @@
 18. docker-compose up --build  -> equivalent to  docker build . + docker run myimage
 19. docker-compose up -d  -> Launch in the background
 20. docker-compose down  -> Stop containers
+21. docker-compose ps -> it looks for a docker-compose file in your current dir and read it and finds the running containers on your local machine that essentially belong to this docker compose file.
 
 
 
@@ -46,6 +47,11 @@
 - Used to start up multiple docker containers at the same time
 - Automates some of the long winded arguments we were passing to run "docker run"
 - The purpose of docker compose is to function as docker CLI but allow us to issue multiple commands much more quickly. 
+- Restart policies
+    - "no" -> Never attempt to restart this . container if it stops or creashes
+    - always -> If the container stops "for any reason" always attempt to restart
+    - on-failure -> Only restart if the container stops with an error code
+    - unless stopped -> Always restart unless we(developers) forcibly stop it
 
 
 
