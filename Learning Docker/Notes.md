@@ -7,30 +7,34 @@
     Docker isn't like that, it runs an application on top of the system. It doesn't include the kernel. It just requires the application, enough of conf and enough of OS layer to run it bare min. It uses and interact with host kernel whenever it is required to do something. Ex: copy commands that runs in the host and moves into the container, that is when docker interacts with host.
 
 # Commands
-1. Docker pull <name>  - Pull any image
-2. Docker ps - Shows all images/containers
-3. Docker container prune - Removes all unused containers
-4. Docker volume ls - Lists all the volumes
-5. Docker container ls - Same as docker ps
-6. Docker run --name give-a-name -p your-any-port:default port of the container -d imagename
+1. docker pull <name>  - Pull any image
+2. docker ps - Shows all images/containers
+3. docker container prune - Removes all unused containers
+4. docker volume ls - Lists all the volumes
+5. docker container ls - Same as docker ps
+6. docker run --name give-a-name -p your-any-port:default port of the container -d imagename
     Ex: docker run --name my-mongodb-one -p 4000:27017 -d mongo
     if you run the docker ps, you will see the default port of the image.
-7. Docker logs imagename or Docker logs CI
+7. docker logs imagename or Docker logs CI
     Ex: Docker logs my-mongodb-one gives all the logs
-8. Docker run imagename -a
+8. docker run imagename -a
     -a -> attach to the container and watch the output coming from it and print it
-9. Docker start CID - Start a container
-10. Docker container stop CID - Stops the CID mentioned -> let the docker do shutdown on its own time and do a clean up
-11. Docker container kill CID - Stops the CID mentioned -> shutdown the process right now and no additional work.
-12. Docker logs CID - To get the logs
-13. Docker exec -it CID cmd - Execute an additional command in the terminal. They are actually 2 seperate tags. -i connects to stdin of the process and -t formats the terminal output.
-14. Docker exec -it CID sh - Full terminal access inside the contest of the container. You can give bash/sh/zsh/powershell (any command processer). This will allow us to type commands in and have them be executed inside the container.
-15. Docker build . - Gives our docker file to docker cli and it generates an image out of it
+9. docker start CID - Start a container
+10. docker container stop CID - Stops the CID mentioned -> let the docker do shutdown on its own time and do a clean up
+11. docker container kill CID - Stops the CID mentioned -> shutdown the process right now and no additional work.
+12. docker logs CID - To get the logs
+13. docker exec -it CID cmd - Execute an additional command in the terminal. They are actually 2 seperate tags. -i connects to stdin of the process and -t formats the terminal output.
+14. docker exec -it CID sh - Full terminal access inside the contest of the container. You can give bash/sh/zsh/powershell (any command processer). This will allow us to type commands in and have them be executed inside the container.
+15. docker build . - Gives our docker file to docker cli and it generates an image out of it. The dot refers to a build context that is the set of files and folders that we want to wrap inside this container.
+16. docker run -p <port number>:<port number> <image id> - Route incoming requests to this port on local host to : this port inside the container
+
 
 
 ## How to write a Dockerfile
     - Step1: BaseImage
     - Step2: Install a software and configure that software
+                COPY ./ ./   => Copy - Path to folder to copy from on your machine relative to build context - Place to copy stuff inside the container. Inshort, we will copy everything from our current working directory into the contianer.
+                WORKDIR  /usr/app  => Any following command will be executed relative to this path in the container
     - Step3: Set default commands
 
 
@@ -43,3 +47,5 @@
 - Control groups -  Is used to limit the amount of resources(memory, CPU,hard drive input, input output, network bandwidth) used per process.
 - Namespacing and control groups belong to Linux
 - The dockerfile you write will be handed over to docker client and a custom image will be created.
+- Alpine is a term in the docker world for an image that is as small andcompact as possible. Many popular repositories will offer alpine versions of their image. It means that we wont be getting a bunch of additional pre-installed programs.
+- Container port mapping - A port mapping says anytime that someone makes a req to a given port on a local network, take that req and automatically forward it to some port inside the container. This is only for the incoming traffic to get in to the container. We do not setup port forwarding inside a Dockerfile, instead it is a runtime constraint. In other words, its something that we only change when we run/start a container.
