@@ -27,6 +27,10 @@
 14. docker exec -it CID sh - Full terminal access inside the contest of the container. You can give bash/sh/zsh/powershell (any command processer). This will allow us to type commands in and have them be executed inside the container.
 15. docker build . - Gives our docker file to docker cli and it generates an image out of it. The dot refers to a build context that is the set of files and folders that we want to wrap inside this container.
 16. docker run -p <port number>:<port number> <image id> - Route incoming requests to this port on local host to : this port inside the container
+17. docker-compose up  -> equicvalent to docker run myimage
+18. docker-compose up --build  -> equivalent to  docker build . + docker run myimage
+19. docker-compose up -d  -> Launch in the background
+20. docker-compose down  -> Stop containers
 
 
 
@@ -36,6 +40,12 @@
                 COPY ./ ./   => Copy - Path to folder to copy from on your machine relative to build context - Place to copy stuff inside the container. Inshort, we will copy everything from our current working directory into the contianer.
                 WORKDIR  /usr/app  => Any following command will be executed relative to this path in the container
     - Step3: Set default commands
+
+## Docker Compose
+- Its a seperate CLI that gets installed along with Docker.
+- Used to start up multiple docker containers at the same time
+- Automates some of the long winded arguments we were passing to run "docker run"
+- The purpose of docker compose is to function as docker CLI but allow us to issue multiple commands much more quickly. 
 
 
 
