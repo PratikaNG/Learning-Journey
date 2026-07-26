@@ -32,7 +32,21 @@
 19. docker-compose up -d  -> Launch in the background
 20. docker-compose down  -> Stop containers
 21. docker-compose ps -> it looks for a docker-compose file in your current dir and read it and finds the running containers on your local machine that essentially belong to this docker compose file.
+22. docker build -f Dockerfile.dev .   --> when you run docker build . it checks for the Dockerfile, but when you have 2 versions like one for dev and one for prod then you have to mention the specific file with -f flag. It specifies which file you want to build.
+    Ex: I have Dockerfile.dev, to build that I have to use "docker build -f Dockerfile.dev ." command.
+23. docker run -p <port>:<port> -v /app/node_modules -v $(pwd):/app <image id>  -> command for docker volume without docker compose. To avoid running this big command, setup docker-compose file with context and dockerfile options inside build option like below
 
+    - version: '3'
+    - services:
+        - web:
+            - build: 
+                - context: .
+                - dockerfile: Dockerfile.dev
+            - ports:
+                - "3000:3000"
+            - volumes:
+                - /app/node_modules
+                - .:/app
 
 
 ## How to write a Dockerfile
@@ -53,7 +67,10 @@
     - on-failure -> Only restart if the container stops with an error code
     - unless stopped -> Always restart unless we(developers) forcibly stop it
 
-
+## Docker volumes
+    When you make a change to source code of one of our files, but the change would not reflect immediately. The solution to this is docker volumes without us having to stop or rebuild the image.
+    With a docker volume, we setup a reference that's going to point back to our local machine and give us access to files and folders inside of the local machine.
+    It can be similar to port mapping, where port mapping mapped a port inside the container to a port outside a container. With a docker volume, we are setting up a mapping from a folder inside the container  to a folder outside a container.
 
 ### Points to be noted
 - Why docker ? : Docker makes it easy to install and run softwares without worrying about setup and dependencies
