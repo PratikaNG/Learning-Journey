@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "expres":"4.16.3",
+        "expres":"*",
         "pg":"8.0.3",
         "redis":"2.8.0",
         "cors":"2.8.4",
