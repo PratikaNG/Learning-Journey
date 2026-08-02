@@ -72,6 +72,10 @@
     With a docker volume, we setup a reference that's going to point back to our local machine and give us access to files and folders inside of the local machine.
     It can be similar to port mapping, where port mapping mapped a port inside the container to a port outside a container. With a docker volume, we are setting up a mapping from a folder inside the container  to a folder outside a container.
 
+## How to write nginx config file
+![alt text](image.png)
+![alt text](image-1.png)
+
 ### Points to be noted
 - Why docker ? : Docker makes it easy to install and run softwares without worrying about setup and dependencies
 - Docker Ecosystem: Docker client, docker server, docker machine, docker images, docker hub, docker compose
