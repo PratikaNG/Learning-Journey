@@ -4,6 +4,16 @@ services:
     image: 'postgres:latest'
   redis:
     image: 'redis:latest'
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./nginx"
+    ports:
+      - '3050:80'
+    depends_on:
+      - api
+      - client
   api:
     build:
       dockerfile: Dockerfile.dev
@@ -36,3 +46,5 @@ services:
     volumes:
       - /app/node_modules
       - /client:/app
+    environment:
+      - WDS_SOCKET_PORT=0
